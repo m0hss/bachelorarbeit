@@ -1,0 +1,75 @@
+{% form_theme form 'form/fields.html.twig' %}
+
+<div class="col-md-12">
+    <div class="tabbable">
+        <ul class="nav nav-tabs tab-padding tab-space-3 tab-blue" id="myTab4">
+
+            <li class="active">
+                <a data-toggle="tab" href="#panel_edit_account">
+                    Ajouter employe
+                </a>
+            </li>
+        </ul>
+        <div class="tab-content">
+
+            <div id="panel_edit_account" class="tab-pane fade in active">
+                <form action="" method="post" role="form" id="form" enctype="multipart/form-data">
+
+                    <fieldset>
+                        <legend>
+                            Account Info
+                        </legend>
+                        <div class="row">
+                            <div class="col-md-6">
+                                {{ form_widget(form.nom) }}
+                                {{ form_widget(form.prenom) }}
+                                {{ form_widget(form.username) }}
+                                {{ form_widget(form.cin) }}
+                                {{ form_widget(form.tel) }}
+                                {{ form_widget(form.plainPassword) }}
+                                {{ form_widget(form.departement) }}
+                                {{ form_widget(form.fonction) }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form_widget(form.dateNaissance) }}
+                                {{ form_widget(form.sexe) }}
+
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        {{ form_widget(form.codePostal) }}
+                                    </div>
+                                    <div class="col-md-8">
+                                        {{ form_widget(form.ville) }}
+                                    </div>
+                                </div>
+                                {{ form_widget(form.adresse) }}
+
+                                <div class="fileinput fileinput-new" data-provides="fileinput">
+
+                                    <div class="fileinput-new thumbnail">
+
+                                    </div>
+
+                                {{ form_widget(form.image) }}
+
+                                </div>
+                            </div>
+                        </div>
+                        {{ form_rest(form) }}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <button class="btn btn-primary pull-left" type="submit">
+                                        Enregistrer <i class="fa fa-arrow-circle-right"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,45 @@
+admin_employe_liste:
+    path:     /
+    defaults: { _controller: AppBundle:Employe:liste}
+
+admin_employe_creer:
+    path:     /ajouter
+    defaults: { _controller: AppBundle:Employe:creer}
+    options:
+        expose: true
+
+admin_employe_voir:
+    path:     /voir/{id}
+    defaults: { _controller: AppBundle:Employe:voir}
+    options:
+        expose: true
+
+admin_employe_modifier:
+    path:     /modifier/{id}
+    defaults: { _controller: AppBundle:Employe:modifier}
+    options:
+        expose: true
+
+admin_employe_modifier_mdp:
+    path:     /modifier-mdp/{id}
+    defaults: { _controller: AppBundle:Employe:modifierMdp}
+    options:
+        expose: true
+
+admin_employe_supprimer:
+    path:     /supprimer/{id}
+    defaults: { _controller: AppBundle:Employe:supprimer}
+    options:
+        expose: true
+
+admin_employe_activer:
+    path:     /activer/{id}
+    defaults: { _controller: AppBundle:Employe:activer}
+    options:
+        expose: true
+
+admin_employe_recherche:
+    path:     /recherche
+    defaults: { _controller: AppBundle:Employe:recherche}
+    options:
+        expose: true

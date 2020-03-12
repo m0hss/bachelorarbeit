@@ -1,0 +1,61 @@
+{% if entities %}
+    <table class="table table-striped table-hover" id="sample_2">
+        <thead>
+        <tr>
+            <th>Demandeur</th>
+            <th>Date demande</th>
+            <th>Date debut</th>
+            <th>Date fin</th>
+            <th>Nb jours</th>
+            <th class="col-md-2"></th>
+        </tr>
+        </thead>
+        <tbody>
+
+        {% for entity in entities %}
+            <tr>
+                <td><span class="label label-sm label-info"
+                          style="font-size: 16px;">{{ entity.demandeur.uniqueNom|title }}</span></td>
+                <td>{{ entity.dateDemande|localizeddate('medium', 'none', format='EEEE dd MMM yyyy') }}</td>
+                <td>{{ entity.dateDebut|localizeddate('medium', 'none', format='EEEE dd MMM yyyy') }}</td>
+                <td>{{ entity.dateFin|localizeddate('medium', 'none', format='EEEE dd MMM yyyy') }}</td>
+                <td>{% set difference = date(entity.dateFin).diff(date(entity.dateDebut)) %}
+                    {% set leftDays = difference.days %}
+                    {% if leftDays == 1 %}1 jour
+                    {% else %}
+                        {{ leftDays }} Jours
+                    {% endif %}</td>
+                <td class="center">
+
+                    {% if entity.etat.id == 1 %}
+                        <span class="label label-success arrowed hidden valider-{{ entity.id }}">Accepter</span>
+                        <span class="label label-danger arrowed hidden refuser-{{ entity.id }}">Réfuser</span>
+
+                        <span id="action-{{ entity.id }}">
+
+                        <a class="btn btn-xs btn-success valider" title="Accepter" data-entity-id="{{ entity.id }}"
+                           href="{{ path('admin_etat_conge', {'id_conge': entity.id, 'id_etat':3} ) }}"><i
+                                    class="fa fa-check fa fa-white"></i></a>
+
+
+                        <a class="btn btn-xs btn-red refuser" title="Réfuser" data-entity-id="{{ entity.id }}"
+                           href="{{ path('admin_etat_conge', {'id_conge': entity.id, 'id_etat':2} ) }}"><i
+                                    class="fa fa-times fa fa-white"></i></a>
+
+                            </span>
+                    {% elseif entity.etat.id == 2 %}
+                        <span class="label label-danger arrowed">Réfuser</span>
+                    {% else %}
+                        <span class="label label-success arrowed">Accepter</span>
+                    {% endif %}
+
+                </td>
+            </tr>
+
+        {% endfor %}
+        </tbody>
+    </table><br><br><br>
+{% else %}
+    <br><br>
+    <h4>Pas des demandes</h4>
+{% endif %}

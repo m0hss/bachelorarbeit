@@ -1,0 +1,15 @@
+<div id="verification">
+    {% if total == null %} {% set total = 0 %} {% endif %}
+    {% set nbJoursTypeConge = type.nbJours %}
+    {% set nbJoursRest = nbJoursTypeConge - total %}
+<p style="font-size: 14px;">
+
+    Vous ete entrain de demander un conge de tye <strong>{{ type.nom }}</strong> qui avait un nombre des jours maximum
+    <strong>{{ nbJoursTypeConge }}</strong>.<br>
+
+    Vous avez consomé <strong>{{ total }} jour(s)</strong> et il vous reste <strong>{{ nbJoursRest }} jour(s)</strong>.
+
+</p>
+
+
+</div>

@@ -1,0 +1,15 @@
+<div class="block-erreurs">
+    <div class="widget-main no-padding">
+        {% spaceless %}
+            <div class="alert alert-danger">
+                <button type="button" class="close" data-dismiss="alert"><i class="icon-remove"></i>
+                </button>
+                {% for data in data %}
+                    {% for error in data %}
+                        {{ error }}<br>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        {% endspaceless %}
+    </div>
+</div>

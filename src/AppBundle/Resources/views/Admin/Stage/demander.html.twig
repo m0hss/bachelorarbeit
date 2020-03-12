@@ -1,0 +1,101 @@
+{% extends "::loginLayout.html.twig" %}
+
+{% block title %} {{ parent() }} - Demander un stage {% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="main-login col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2">
+            <div class="logo margin-top-30">
+                <img src="{{ asset('assets/images/logo.png') }}" alt="Clip-Two"/>
+            </div>
+
+            <div class="row">
+                {% form_theme form 'form/fields.html.twig' %}
+
+                <br><br>
+
+                <div class="col-md-12">
+                    <div class="tabbable">
+                        <ul class="nav nav-tabs tab-padding tab-space-3 tab-blue" id="myTab4">
+
+                            <li class="active">
+                                <a data-toggle="tab" href="#panel_edit_account">
+                                    Demander un stage
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+
+                            <div id="panel_edit_account" class="tab-pane fade in active">
+                                <form action="" method="post" role="form" id="form" enctype="multipart/form-data">
+
+
+                                    <fieldset>
+                                        <legend>
+                                            Veuillez remplir la formulaire
+                                        </legend>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                {{ form_widget(form.nom) }}
+                                                {{ form_widget(form.prenom) }}
+                                                <div class="row">
+                                                    <div class="col-md-6"> {{ form_widget(form.dateNaissance) }}</div>
+                                                    <div class="col-md-6"> {{ form_widget(form.sexe) }}</div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6"> {{ form_widget(form.cin) }}</div>
+                                                    <div class="col-md-6"> {{ form_widget(form.tel) }}</div>
+                                                </div>
+                                                {{ form_widget(form.email) }}
+                                                {{ form_widget(form.adresse) }}
+                                                {{ form_widget(form.ville) }}
+                                                {{ form_widget(form.codePostal) }}
+                                                {{ form_widget(form.niveauEtude) }}
+                                                {{ form_widget(form.diplomePrepare) }}
+                                                {{ form_widget(form.titreDiplome) }}
+
+
+                                            </div>
+                                            <div class="col-md-6">
+                                                {{ form_widget(form.departement) }}
+                                                {{ form_widget(form.dateDebut) }}
+                                                {{ form_widget(form.dateFin) }}
+
+                                                {{ form_widget(form.etablissement) }}
+                                                {{ form_widget(form.adresseEtablissement) }}
+                                                {{ form_widget(form.villeEtablissement) }}
+                                                {{ form_widget(form.codePostalEtablissement) }}
+                                                {{ form_widget(form.telEtablissement) }}
+                                                {{ form_widget(form.lettreMotivation) }}
+                                                {{ form_widget(form.cv) }}
+
+                                                {{ form_rest(form) }}
+
+
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <button class="btn btn-primary pull-left demande" type="submit">
+                                                        Envoyer <i class="fa fa-arrow-circle-right"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <!-- end: LOGIN -->
+{% endblock %}

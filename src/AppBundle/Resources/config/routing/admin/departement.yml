@@ -1,0 +1,22 @@
+admin_departement_liste:
+    path:     /
+    defaults: { _controller: AppBundle:Departement:liste}
+
+admin_departement_creer:
+    path:     /ajouter
+    defaults: { _controller: AppBundle:Departement:creer}
+    options:
+        expose: true
+
+
+admin_departement_modifier:
+    path:     /modifier/{id}
+    defaults: { _controller: AppBundle:Departement:modifier}
+    options:
+        expose: true
+
+admin_departement_supprimer:
+    path:     /supprimer/{id}
+    defaults: { _controller: AppBundle:Departement:supprimer}
+    options:
+        expose: true

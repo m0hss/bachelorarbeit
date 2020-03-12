@@ -1,0 +1,22 @@
+admin_fonction_liste:
+    path:     /
+    defaults: { _controller: AppBundle:Fonction:liste}
+
+admin_fonction_creer:
+    path:     /ajouter
+    defaults: { _controller: AppBundle:Fonction:creer}
+    options:
+        expose: true
+
+
+admin_fonction_modifier:
+    path:     /modifier/{id}
+    defaults: { _controller: AppBundle:Fonction:modifier}
+    options:
+        expose: true
+
+admin_fonction_supprimer:
+    path:     /supprimer/{id}
+    defaults: { _controller: AppBundle:Fonction:supprimer}
+    options:
+        expose: true

@@ -1,0 +1,27 @@
+parameters:
+#    user.example.class: Project\UserBundle\Example
+
+services:
+    user.registration.form.type:
+        class: UserBundle\Form\Type\RegistrationFormType
+        arguments: [%fos_user.model.user.class%]
+        tags:
+            - { name: form.type, alias: user_registration }
+
+    user.edit.form.type:
+        class: UserBundle\Form\Type\ProfileFormEditType
+        arguments: [%fos_user.model.user.class%]
+        tags:
+            - { name: form.type, alias: user_profile_edit }
+
+    user.change_password.form.type:
+        class: UserBundle\Form\Type\ChangePasswordFormType
+        arguments: [%fos_user.model.user.class%]
+        tags:
+            - { name: form.type, alias: user_change_password }
+
+
+    twig.pays_extension:
+        class: UserBundle\Twig\CountryExtension
+        tags:
+            - { name: twig.extension }

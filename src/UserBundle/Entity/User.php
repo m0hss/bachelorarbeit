@@ -1,0 +1,495 @@
+<?php
+namespace UserBundle\Entity;
+
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping as ORM;
+use FOS\UserBundle\Model\User as BaseUser;
+use Symfony\Component\Validator\Constraints as Assert;
+
+
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+
+
+
+/**
+ * @ORM\Entity(repositoryClass="UserBundle\Entity\UserRepository")
+ * @ORM\Table(name="fos_user")
+ * @ORM\AttributeOverrides({
+ *     @ORM\AttributeOverride(name="email",
+ *          column=@ORM\Column(
+ *               nullable = true,
+ *          )
+ *     ),
+ *     @ORM\AttributeOverride(name="emailCanonical",
+ *          column=@ORM\Column(
+ *                nullable= true,
+ *                unique=false
+ *          )
+ *      )
+ *
+ * })
+ * @UniqueEntity(fields="cin", message="Numero cin est déja utilisé.")
+ * @UniqueEntity(fields="username", message="Matricule est déja utilisé.")
+ * @UniqueEntity(fields="tel", message="Téléphone est déja utilisé.")
+ */
+
+class User extends BaseUser
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     *
+     * //@Assert\NotBlank(message="Nom est vide.", groups={"Registration", "Profile"})
+     * @Assert\Length(
+     *     min=3,
+     *     max="40",
+     *     minMessage="Nom est court.",
+     *     maxMessage="Nom est long.",
+     *     groups={"Registration", "Profile"}
+     * )
+     */
+    protected $nom;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     *
+     * //@Assert\NotBlank(message="Prénom est vide.", groups={"Registration", "Profile"})
+     * @Assert\Length(
+     *     min=3,
+     *     max="60",
+     *     minMessage="Prénom est court.",
+     *     maxMessage="Prénom est long.",
+     *     groups={"Registration", "Profile"}
+     * )
+     */
+    protected $prenom;
+
+
+    /**
+     * @ORM\Column(type="string", length=8)
+     *
+     * @Assert\Length(
+     *     min=8,
+     *     max="8",
+     *     minMessage="Cin  est court.",
+     *     maxMessage="Cin est long."
+     * )
+     * @Assert\Regex(
+     *		"/^[0-9]+$/",
+     *		message="Cin : utiliser seulement des chifres"
+     * )
+     */
+    protected $cin;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Fonction")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    protected $fonction;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Departement")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    protected $departement;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Ville")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    protected $ville;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     *
+     */
+    protected $adresse;
+
+    /**
+     * @ORM\Column(type="integer")
+     *
+     */
+    protected $codePostal;
+
+    /**
+     * @ORM\Column(type="string", length=15, nullable=true)
+     *
+     */
+    protected $sexe;
+
+    /**
+     * @ORM\Column(type="string", length=20, nullable=true)
+     *
+	 * @Assert\Length(
+     *     min=8,
+     *     max="8",
+     *     minMessage="Téléphone  est court.",
+     *     maxMessage="Téléphone est long."
+     * )
+
+     */
+    protected $tel;
+
+    /**
+     * @ORM\Column(type="datetime")
+     *
+     */
+    protected $dateInscrire;
+
+    /**
+     * @var \DateTime $dateNaissance
+     *
+     * @ORM\Column(name="datenaissance", type="date", nullable=true)
+     *
+     */
+    protected $dateNaissance;
+
+    /**
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Image", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=true)
+     *
+     */
+    private $image;
+
+
+    protected $uniqueNom;
+
+    public function getUniqueNom()
+    {
+        return sprintf('%s  %s', $this->nom, $this->prenom);
+    }
+
+   /**
+	* Construct 
+	**/
+	public function __construct()
+	{
+		parent::__construct();
+		$this->dateInscrire = new \Datetime();
+        $this->enabled = true;
+	}
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set nom
+     *
+     * @param string $nom
+     * @return User
+     */
+    public function setNom($nom)
+    {
+        $this->nom = $nom;
+
+        return $this;
+    }
+
+    /**
+     * Get nom
+     *
+     * @return string 
+     */
+    public function getNom()
+    {
+        return $this->nom;
+    }
+
+    /**
+     * Set prenom
+     *
+     * @param string $prenom
+     * @return User
+     */
+    public function setPrenom($prenom)
+    {
+        $this->prenom = $prenom;
+
+        return $this;
+    }
+
+    /**
+     * Get prenom
+     *
+     * @return string 
+     */
+    public function getPrenom()
+    {
+        return $this->prenom;
+    }
+
+
+
+    /**
+     * Set tel
+     *
+     * @param string $tel
+     * @return User
+     */
+    public function setTel($tel)
+    {
+        $this->tel = $tel;
+
+        return $this;
+    }
+
+    /**
+     * Get tel
+     *
+     * @return string 
+     */
+    public function getTel()
+    {
+        return $this->tel;
+    }
+
+    /**
+     * Set dateInscrire
+     *
+     * @param \DateTime $dateInscrire
+     * @return User
+     */
+    public function setDateInscrire($dateInscrire)
+    {
+        $this->dateInscrire = $dateInscrire;
+
+        return $this;
+    }
+
+    /**
+     * Get dateInscrire
+     *
+     * @return \DateTime 
+     */
+    public function getDateInscrire()
+    {
+        return $this->dateInscrire;
+    }
+
+
+    /**
+     * Set ville
+     *
+     * @param \AppBundle\Entity\Ville $ville
+     * @return User
+     */
+    public function setVille(\AppBundle\Entity\Ville $ville)
+    {
+        $this->ville = $ville;
+
+        return $this;
+    }
+
+    /**
+     * Get ville
+     *
+     * @return \AppBundle\Entity\Ville 
+     */
+    public function getVille()
+    {
+        return $this->ville;
+    }
+
+    /**
+     * Set adresse
+     *
+     * @param string $adresse
+     * @return User
+     */
+    public function setAdresse($adresse)
+    {
+        $this->adresse = $adresse;
+
+        return $this;
+    }
+
+    /**
+     * Get adresse
+     *
+     * @return string 
+     */
+    public function getAdresse()
+    {
+        return $this->adresse;
+    }
+
+    /**
+     * Set codePostal
+     *
+     * @param integer $codePostal
+     * @return User
+     */
+    public function setCodePostal($codePostal)
+    {
+        $this->codePostal = $codePostal;
+
+        return $this;
+    }
+
+    /**
+     * Get codePostal
+     *
+     * @return integer 
+     */
+    public function getCodePostal()
+    {
+        return $this->codePostal;
+    }
+
+    /**
+     * Set sexe
+     *
+     * @param string $sexe
+     * @return User
+     */
+    public function setSexe($sexe)
+    {
+        $this->sexe = $sexe;
+
+        return $this;
+    }
+
+    /**
+     * Get sexe
+     *
+     * @return string 
+     */
+    public function getSexe()
+    {
+        return $this->sexe;
+    }
+
+    /**
+     * Set dateNaissance
+     *
+     * @param \DateTime $dateNaissance
+     * @return User
+     */
+    public function setDateNaissance($dateNaissance)
+    {
+        $this->dateNaissance = $dateNaissance;
+
+        return $this;
+    }
+
+    /**
+     * Get dateNaissance
+     *
+     * @return \DateTime 
+     */
+    public function getDateNaissance()
+    {
+        return $this->dateNaissance;
+    }
+
+
+
+    /**
+     * Set image
+     *
+     * @param \AppBundle\Entity\Image $image
+     * @return User
+     */
+    public function setImage(\AppBundle\Entity\Image $image = null)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return \AppBundle\Entity\Image
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * Set cin
+     *
+     * @param integer $cin
+     * @return User
+     */
+    public function setCin($cin)
+    {
+        $this->cin = $cin;
+
+        return $this;
+    }
+
+    /**
+     * Get cin
+     *
+     * @return integer 
+     */
+    public function getCin()
+    {
+        return $this->cin;
+    }
+
+    /**
+     * Set fonction
+     *
+     * @param \AppBundle\Entity\Fonction $fonction
+     * @return User
+     */
+    public function setFonction(\AppBundle\Entity\Fonction $fonction = null)
+    {
+        $this->fonction = $fonction;
+
+        return $this;
+    }
+
+    /**
+     * Get fonction
+     *
+     * @return \AppBundle\Entity\Fonction 
+     */
+    public function getFonction()
+    {
+        return $this->fonction;
+    }
+
+    /**
+     * Set departement
+     *
+     * @param \AppBundle\Entity\Departement $departement
+     * @return User
+     */
+    public function setDepartement(\AppBundle\Entity\Departement $departement = null)
+    {
+        $this->departement = $departement;
+
+        return $this;
+    }
+
+    /**
+     * Get departement
+     *
+     * @return \AppBundle\Entity\Departement 
+     */
+    public function getDepartement()
+    {
+        return $this->departement;
+    }
+
+}

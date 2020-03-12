@@ -1,0 +1,75 @@
+<div id="panel_edit_account" class="tab-pane fade in active">
+    <form action="{{ path('admin_demander_conge') }}" method="post" role="form" id="form">
+
+
+        <fieldset>
+            <legend>
+                Demander un conge
+            </legend>
+            <div class="row">
+                <div class="col-md-6">
+                    <figure style="width: 70px; margin: auto; display: none" class="loading">
+                        <img src="{{ asset('images/ajax_loader.gif') }}"
+                             style="margin: 0 auto"
+                             width="70" height=""/>
+                        <figcaption style="font-size: 16px;">Vérification</figcaption>
+                        <br>
+                    </figure>
+
+                    <div id="verification">
+
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label">
+                            Type de conge
+                        </label>
+                        {{ form_widget(form.typeConge) }}
+                        {{ form_errors(form.typeConge) }}
+                    </div>
+
+                    <div id="continuer" style="display: none">
+                        <div class="form-group">
+                            <label class="control-label" style="display: block">
+                                Nombre des jours
+                            </label>
+                            {{ form_widget(form.nbJours) }}
+                            {{ form_errors(form.nbJours) }}
+                        </div>
+<br><br>
+                        <div class="form-group">
+                            <label class="control-label">
+                                Date debut
+                            </label>
+                            {{ form_widget(form.dateDebut) }}
+                            {{ form_errors(form.dateDebut) }}
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">
+                                Date fin
+                            </label>
+                            {{ form_widget(form.dateFin) }}
+                            {{ form_errors(form.dateFin) }}
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">
+                                Remplacement par
+                            </label>
+                            {{ form_widget(form.remplaceur) }}
+                            {{ form_errors(form.remplaceur) }}
+                        </div>
+
+                        {{ form_rest(form) }}
+
+                        <div class="form-group">
+                            <button class="btn btn-primary pull-left demande" type="submit">
+                                Envoyer <i class="fa fa-arrow-circle-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </fieldset>
+    </form>
+</div>

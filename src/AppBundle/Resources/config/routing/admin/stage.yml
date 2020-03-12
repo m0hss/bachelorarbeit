@@ -1,0 +1,27 @@
+liste_demande_stage:
+    path:     /
+    defaults: { _controller: AppBundle:Stage:listeStages}
+
+admin_stage_voir:
+    path:     /voir/{id}
+    defaults: { _controller: AppBundle:Stage:voir}
+    options:
+        expose: true
+
+admin_stage_supprimer:
+    path:     /supprimer/{id}
+    defaults: { _controller: AppBundle:Stage:supprimer}
+    options:
+        expose: true
+
+admin_stage_valider:
+    path:     /valider/{id}
+    defaults: { _controller: AppBundle:Stage:valider}
+    options:
+        expose: true
+
+admin_stage_refuse:
+    path:     /refuse/{id}
+    defaults: { _controller: AppBundle:Stage:refuse}
+    options:
+        expose: true

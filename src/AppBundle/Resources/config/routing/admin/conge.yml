@@ -1,0 +1,35 @@
+liste_demandes_conges:
+    path:  /gestion-conges
+    defaults: { _controller: AppBundle:Conge:listeDemandesCoges }
+
+admin_demander_conge:
+    path:  /demander
+    defaults: { _controller: AppBundle:Conge:demander }
+
+admin_etat_conge:
+    path:  /etat-conge/conge/{id_conge}/etat/{id_etat}
+    defaults: { _controller: AppBundle:Conge:etat }
+    methods: POST
+    options:
+        expose: true
+
+admin_supprimer_conge:
+    pattern:  /supprimer/{id}
+    defaults: { _controller: AppBundle:Conge:supprimer }
+    methods: POST
+    options:
+        expose: true
+
+admin_mes_conges:
+    path:  /mes-conges
+    defaults: { _controller: AppBundle:Conge:conges }
+
+modifier_conge:
+    pattern:  /modifier/{id}
+    defaults: { _controller: AppBundle:Conge:modifier }
+
+verifier_conge:
+    pattern:  /verifier
+    defaults: { _controller: AppBundle:Conge:verifier }
+    options:
+        expose: true

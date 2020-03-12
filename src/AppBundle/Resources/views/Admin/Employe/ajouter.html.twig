@@ -1,0 +1,12 @@
+{% extends '::admin.html.twig' %}
+
+{% block title %} {{ parent() }} - Ajouter employe {% endblock %}
+
+{% block body %}
+
+    <div class="row">
+        {% include '@App/Admin/Employe/form.html.twig' %}
+    </div>
+
+
+{% endblock %}

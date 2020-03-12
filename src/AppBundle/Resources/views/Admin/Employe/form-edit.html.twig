@@ -1,0 +1,97 @@
+{% form_theme form 'form/fields.html.twig' %}
+<form action="{{ path('admin_employe_modifier', {'id': entity.id}) }}" method="post" role="form" id="form" enctype="multipart/form-data">
+
+    <fieldset>
+        <legend>
+            Account Info
+        </legend>
+        <div class="row">
+            <div class="col-md-6">
+                {{ form_widget(form.nom) }}
+                {{ form_widget(form.prenom) }}
+                {{ form_widget(form.username) }}
+                {{ form_widget(form.cin) }}
+                {{ form_widget(form.tel) }}
+                {{ form_widget(form.departement) }}
+                {{ form_widget(form.fonction) }}
+            </div>
+            <div class="col-md-6">
+                {{ form_widget(form.dateNaissance) }}
+                {{ form_widget(form.sexe) }}
+
+                <div class="row">
+                    <div class="col-md-4">
+                        {{ form_widget(form.codePostal) }}
+                    </div>
+                    <div class="col-md-8">
+                        {{ form_widget(form.ville) }}
+                    </div>
+                </div>
+                {{ form_widget(form.adresse) }}
+
+                <div class="fileinput fileinput-new" data-provides="fileinput">
+
+                    <div class="fileinput-new thumbnail">
+                        {% if entity.image %}
+                            <img src="{{ asset(entity.image.webPath) }}" alt="">
+                        {% elseif entity.image == null and entity.sexe == "Homme" %}
+                            <img src="{{ asset('images/homme.png') }}" alt="">
+                        {% elseif entity.image == null and entity.sexe == "Femme" %}
+                            <img src="{{ asset('images/femme.png') }}" alt="">
+                        {% endif %}
+                    </div>
+
+                    {{ form_widget(form.image) }}
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <button class="btn btn-primary pull-left" type="submit">
+                        Enregistrer <i class="fa fa-arrow-circle-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+
+    {{ form_rest(form) }}
+
+</form>
+
+<h3>Modifier mot de passe</h3>
+
+<form action="{{ path('admin_employe_modifier_mdp', {'id': entity.id}) }}" method="post" role="form" id="form" enctype="multipart/form-data">
+
+    <fieldset>
+        <legend>
+            Modifier mot de passe
+        </legend>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    {{ form_errors(form_mdp.plainPassword) }}
+                    {{ form_widget(form_mdp.plainPassword) }}
+                    {{ form_errors(form_mdp.plainPassword) }}
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <button class="btn btn-primary pull-left" type="submit">
+                        Enregistrer <i class="fa fa-arrow-circle-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+
+    {{ form_rest(form_mdp) }}
+
+</form>
+

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+
+    <title>{% block title %}Administration{% endblock %}</title>
+
+    {# basic styles #}
+
+    {% block stylesheets %}
+
+        <link href="http://fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic"
+              rel="stylesheet" type="text/css') }}"/>
+
+
+        <!-- start: MAIN CSS -->
+        <link rel="stylesheet" href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('vendor/fontawesome/css/font-awesome.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('vendor/themify-icons/themify-icons.min.css') }}">
+        <link href="{{ asset('vendor/animate.css/animate.min.css') }}" rel="stylesheet" media="screen">
+        <link href="{{ asset('vendor/perfect-scrollbar/perfect-scrollbar.min.css') }}" rel="stylesheet" media="screen">
+        <link href="{{ asset('vendor/switchery/switchery.min.css') }}" rel="stylesheet" media="screen">
+        <!-- end: MAIN CSS -->
+
+        <!-- start: CLIP-TWO CSS -->
+        <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/css/plugins.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/css/themes/theme-1.css') }}" id="skin_color"/>
+        <!-- end: CLIP-TWO CSS -->
+
+    {% endblock %}
+
+</head>
+
+<body class="login">
+
+{% block body %}
+
+{% endblock %}
+
+{% block javascripts %}
+
+    <!-- start: MAIN JAVASCRIPTS -->
+    <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('vendor/modernizr/modernizr.js') }}"></script>
+    <script src="{{ asset('vendor/jquery-cookie/jquery.cookie.js') }}"></script>
+    <script src="{{ asset('vendor/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
+    <script src="{{ asset('vendor/switchery/switchery.min.js') }}"></script>
+    <!-- end: MAIN JAVASCRIPTS -->
+
+    <!-- start: JAVASCRIPTS REQUIRED -->
+    <script src="{{ asset('vendor/jquery-validation/jquery.validate.min.js') }}"></script>
+    <!-- end: JAVASCRIPTS REQUIRED  -->
+
+    <script src="{{ asset('ajax/ajax_admin.js') }}"></script>
+
+    <!-- start: CLIP-TWO JAVASCRIPTS -->
+    <script src="{{ asset('assets/js/main.js') }}"></script>
+    <script src="{{ asset('assets/js/login.js') }}"></script>
+    <!-- start: JavaScript Event Handlers for this page -->
+    <script>
+        jQuery(document).ready(function () {
+            Main.init();
+            Login.init();
+        });
+    </script>
+
+
+{% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,54 @@
+{% extends "::loginLayout.html.twig" %}
+
+{% block title %} {{ parent() }} - Demander un stage {% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="main-login col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2">
+            <div class="logo margin-top-30">
+                <img src="{{ asset('assets/images/logo.png') }}" alt="Clip-Two"/>
+            </div>
+
+            <div class="row">
+
+
+                <br><br>
+
+                <div class="col-md-12">
+                    <div class="tabbable">
+                        <ul class="nav nav-tabs tab-padding tab-space-3 tab-blue" id="myTab4">
+
+                            <li class="active">
+                                <a data-toggle="tab" href="#panel_edit_account">
+                                    Demander un stage
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+
+                            <div id="panel_edit_account" class="tab-pane fade in active">
+
+
+                                <div class="alert alert-block alert-success fade in">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                    <h4 class="alert-heading margin-bottom-10"><i class="ti-check"></i> Félictiation!</h4>
+                                    <p class="margin-bottom-10">
+                                      Votre demande de stage a été envoyé avec succes , ne allons ..........
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <!-- end: LOGIN -->
+{% endblock %}

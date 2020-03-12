@@ -1,0 +1,6 @@
+services:
+    security.access.sub_club_voter:
+        class:      AppBundle\Security\Authorization\Voter\OwnerVoter
+        public:     false
+        tags:
+           - { name: security.voter }

@@ -1,0 +1,64 @@
+{# cette page pour le chef departement, il consulte la liste des demandes des stages#}
+{% extends '::admin.html.twig' %}
+
+{% block title %} {{ parent() }} - Gestion des stages {% endblock %}
+
+    {% block page_header %}
+        <div class="col-sm-8">
+            <h1 class="mainTitle">Gestion des stages</h1>
+        </div>
+    {% endblock %}
+
+{% block body %}
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="tabbable">
+                <ul class="nav nav-tabs tab-padding tab-space-3 tab-blue" id="myTab4">
+                    <li class="active">
+                        <a data-toggle="tab" href="#tab1">
+                            <h5><span class="text-bold">Liste des demandes stages</span></h5>
+                        </a>
+                    </li>
+                    <li>
+                        <a data-toggle="tab" href="#tab2">
+                            <h5><span class="text-bold">Stages validé</span></h5>
+                        </a>
+                    </li>
+                    <li>
+                        <a data-toggle="tab" href="#tab3">
+                            <h5><span class="text-bold">Stage refusé</span></h5>
+                        </a>
+                    </li>
+                    <li>
+                        <a data-toggle="tab" href="#tab4">
+                            <h5><span class="text-bold">Etudiants en stage</span></h5>
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="tab-content" id="madiv">
+                    <div id="tab1" class="tab-pane fade in active">
+                        {% include '@App/Admin/Stage/liste_demandes.html.twig' %}
+                    </div>
+
+                    <div id="tab2" class="tab-pane fade in">
+                        {% include '@App/Admin/Stage/liste_valide.html.twig' %}
+                    </div>
+
+                    <div id="tab3" class="tab-pane fade in">
+                        {% include '@App/Admin/Stage/liste_refuse.html.twig' %}
+                    </div>
+
+                    <div id="tab4" class="tab-pane fade in">
+                        {% include '@App/Admin/Stage/etudiants_en_stage.html.twig' %}
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

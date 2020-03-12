@@ -1,0 +1,79 @@
+{% if entities %}
+    <table class="table table-striped table-hover" id="sample_1">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Date demande</th>
+            <th>Type conge</th>
+
+            <th>Date debut</th>
+            <th>Date fin</th>
+            <th>Nb jours</th>
+            <th>Remplaceur</th>
+            <th class="col-md-2"></th>
+            <td>Action</td>
+        </tr>
+        </thead>
+        <tbody>
+
+        {% for entity in entities %}
+            <tr id="item-{{ entity.id }}">
+                <td>{{ entity.id }}</td>
+
+                <td>{{ entity.dateDemande|localizeddate('medium', 'none', format='EEEE dd MMM yyyy') }}</td>
+                <td>{{ entity.typeConge.nom }}</td>
+                <td>{{ entity.dateDebut|localizeddate('medium', 'none', format='EEEE dd MMM yyyy') }}</td>
+                <td>{{ entity.dateFin|localizeddate('medium', 'none', format='EEEE dd MMM yyyy') }}</td>
+                <td>{% set difference = date(entity.dateFin).diff(date(entity.dateDebut)) %}
+                    {% set leftDays = difference.days %}
+                    {% if leftDays == 1 %}1 jour
+                    {% else %}
+                        {{ leftDays }} Jours
+                    {% endif %}</td>
+                <td>{{ entity.remplaceur.uniqueNom|title }}</td>
+
+                <td class="center">
+
+                    {% if entity.etat.id == 1 %}
+                        <span class="label label-warning arrowed">{{ entity.etat.nom }}</span>
+                    {% endif %}
+
+                    {% if entity.etat.id == 2 %}
+                        <span class="label label-danger arrowed">{{ entity.etat.nom }}</span>
+                    {% endif %}
+
+                    {% if entity.etat.id == 3 %}
+                        <span class="label label-success arrowed">{{ entity.etat.nom }}</span>
+                    {% endif %}
+
+                    {% if entity.etat.id == 4 %}
+                        <span class="label label-danger arrowed">{{ entity.etat.nom }}</span>
+                    {% endif %}
+
+                    {% if entity.etat.id == 5 %}
+                        <span class="label label-success arrowed">{{ entity.etat.nom }}</span>
+                    {% endif %}
+
+                </td>
+                <td>
+                    {% if entity.etat.id == 1 %}
+                        <a href="{{ path('modifier_conge', {'id': entity.id} ) }}"
+                           class="btn btn-transparent btn-xs" tooltip-placement="top" tooltip="Edit"><i
+                                    class="fa fa-pencil"></i></a>
+
+                        <a href="{{ path('admin_supprimer_conge', {'id': entity.id}) }}"
+                           data-entity-id="{{ entity.id }}"
+                           class="btn btn-transparent btn-xs tooltips remove_item"
+                           tooltip-placement="top"
+                           tooltip="Remove"><i class="fa fa-times fa fa-white"></i></a>
+                    {% endif %}
+                </td>
+            </tr>
+
+        {% endfor %}
+        </tbody>
+    </table><br><br><br>
+{% else %}
+    <br><br>
+    <h4>Pas des conges encore.....</h4>
+{% endif %}

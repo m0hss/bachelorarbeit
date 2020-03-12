@@ -1,0 +1,22 @@
+admin_type_conge_liste:
+    path:     /
+    defaults: { _controller: AppBundle:TypeConge:liste}
+
+admin_type_conge_creer:
+    path:     /ajouter
+    defaults: { _controller: AppBundle:TypeConge:creer}
+    options:
+        expose: true
+
+
+admin_type_conge_modifier:
+    path:     /modifier/{id}
+    defaults: { _controller: AppBundle:TypeConge:modifier}
+    options:
+        expose: true
+
+admin_type_conge_supprimer:
+    path:     /supprimer/{id}
+    defaults: { _controller: AppBundle:TypeConge:supprimer}
+    options:
+        expose: true

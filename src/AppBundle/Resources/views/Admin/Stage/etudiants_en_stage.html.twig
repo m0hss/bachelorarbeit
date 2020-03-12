@@ -1,0 +1,87 @@
+{% if entities %}
+    <div class="row">
+        <div class="col-md-12">
+            <h5 class="over-title margin-bottom-15"><span class="text-bold">Liste etudinats en stage </span></h5>
+
+            <table class="table table-striped table-hover" id="sample_1">
+                <thead>
+                <tr>
+                    <th class="center col-md-1">#</th>
+                    <th class="center col-md-1">Sexe</th>
+                    <th>Nom et prénom</th>
+                    <th>E-mail</th>
+                    <th>Date debut</th>
+                    <th>Date fin</th>
+                    <th class="col-md-2"></th>
+                </tr>
+                </thead>
+                <tbody>
+
+                {% for entity in etudiantsEnStage %}
+                    <tr id="item-{{ entity.id }}">
+                        <td class="center">{{ entity.id }} </td>
+                        <td class="center">
+                            {% if entity.sexe == 'Homme' %}
+                                <img src="{{ asset('images/homme.png') }}" class="img-rounded" width="35" height="35">
+                            {% else %}
+                                <img src="{{ asset('images/femme.png') }}" class="img-rounded" width="35" height="35">
+                            {% endif %}
+                        </td>
+                        <td>{{ entity.uniqueNom|title }} </td>
+                        <td>{{ entity.email }}</td>
+                        <td>{{ entity.dateDebut|localizeddate('medium', 'none', format='EEEE dd MMM yyyy à HH:mm') }}</td>
+                        <td>{{ entity.dateFin|localizeddate('medium', 'none', format='EEEE dd MMM yyyy à HH:mm') }}</td>
+
+                        <td class="center">
+                            <div class="visible-md visible-lg hidden-sm hidden-xs">
+
+                                <a href data-toggle="modal" data-target="#myModal-{{ entity.id }}"
+                                   class="btn btn-transparent btn-xs" tooltip-placement="top"
+                                   tooltip="Voir"><i
+                                            class="fa fa-eye"></i></a>
+
+                                <a href="{{ path('admin_stage_supprimer', {'id': entity.id}) }}"
+                                   data-entity-id="{{ entity.id }}"
+                                   class="btn btn-transparent btn-xs tooltips remove_item" tooltip-placement="top"
+                                   tooltip="Remove"><i class="fa fa-times fa fa-white"></i></a>
+                            </div>
+                            <div class="visible-xs visible-sm hidden-md hidden-lg">
+                                <div class="btn-group" dropdown>
+                                    <button type="button" class="btn btn-primary btn-o btn-sm dropdown-toggle"
+                                            dropdown-toggle>
+                                        <i class="fa fa-cog"></i>&nbsp;<span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu pull-right dropdown-light" role="menu">
+                                        <li>
+                                            <a href="{{ path('admin_stage_valider', {'id': entity.id} ) }}"
+                                               class="edit_entity">
+                                                Edit
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#">
+                                                Supp
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="modal fade" id="myModal-{{ entity.id }}" tabindex="-1" role="dialog"
+                                 aria-labelledby="myModalLabel"
+                                 aria-hidden="true">
+                                {% include '@App/Admin/Stage/voir.html.twig' %}
+                            </div>
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% else %}
+    <br><br>
+    <h4>Pas des demandes</h4>
+{% endif %}

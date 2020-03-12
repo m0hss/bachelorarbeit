@@ -1,0 +1,78 @@
+{% extends "::loginLayout.html.twig" %}
+
+{% block title %} {{ parent() }} - Login {% endblock %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block body %}
+    <!-- start: LOGIN -->
+    <div class="row">
+
+        <div class="main-login col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-4">
+            <div class="logo margin-top-30">
+                <h3 class="text-center">Nom d'application</h3>
+            </div>
+
+            <div class="box-login">
+                <form class="form-login" action="{{ path("fos_user_security_check") }}" method="post">
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}"/>
+                    <fieldset>
+                        {% if error %}
+                            <p style="color: red"> {{ error.messageKey|trans(error.messageData, 'security') }} </p>
+                        {% endif %}
+
+                        <legend>
+                            Connexion
+                        </legend>
+                        <p>
+                            Entrer votre matricule et mot de passe.
+                        </p>
+
+                        <div class="form-group">
+                    <span class="input-icon">
+                        <input class="form-control" type="text" id="username" name="_username"
+                               value="{{ last_username }}" required="required"
+                               placeholder="{{ 'security.login.username'|trans }}"/>
+                        <i class="fa fa-user"></i> </span>
+                        </div>
+
+                        <div class="form-group form-actions">
+                    <span class="input-icon">
+                        <input class="form-control password" type="password" id="password" name="_password"
+                               required="required" placeholder="{{ 'security.login.password'|trans }}"/>
+
+                    </span>
+                        </div>
+                        <div class="form-actions">
+
+
+                            <div class="checkbox clip-check check-primary">
+                                <input type="checkbox" id="remember" name="_remember_me"/>
+                                <label for="remember">
+                                    {{ 'security.login.remember_me'|trans }}
+                                </label>
+                            </div>
+                            <button type="submit" id="_submit" name="_submit" class="btn btn-primary pull-right">
+                                {{ 'security.login.submit'|trans }} <i class="fa fa-arrow-circle-right"></i>
+                            </button>
+                        </div>
+
+                    </fieldset>
+                </form>
+                <!-- start: COPYRIGHT -->
+                <div class="copyright">
+                    <h5>
+                        <a href="{{ path('demander_satage') }}"><strong>Demander un stage</strong></a>
+                    </h5>
+                </div>
+                <!-- end: COPYRIGHT -->
+            </div>
+
+
+        </div>
+    </div>
+    <!-- end: LOGIN -->
+{% endblock body %}
+
+
+

@@ -1,0 +1,196 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title" id="myModalLabel">
+                Demande de stage</h4>
+            <h5>    de  {{ entity.dateDebut|localizeddate('medium', 'none', format='dd MMM yyyy') }}
+               jusqu'à  {{ entity.dateFin|localizeddate('medium', 'none', format='dd MMM yyyy') }}
+            </h5>
+        </div>
+        <div class="modal-body" style="text-align: left">
+            <div class="message-header" style="padding-top: 20px; text-align: left">
+                {% if entity.sexe == 'Homme' %}
+                    <img src="{{ asset('images/homme.png') }}" class="message-item-avatar" width="50" height="50">
+                {% else %}
+                    <img src="{{ asset('images/femme.png') }}" class="message-item-avatar" width="50" height="50">
+                {% endif %}
+
+
+                <div class="message-time" style="font-size: 14px;">
+                    Date demande
+                    :{{ entity.dateDemande|localizeddate('medium', 'medium', format='EEEE dd MMM yyyy à HH:mm') }}
+                </div>
+
+                <div class="message-from">
+                    {{ entity.uniqueNom|title }} &lt;{{ entity.email }}&gt;
+                </div>
+
+            </div>
+
+
+            <table class="table table-condensed" style="margin-bottom: 15px;">
+                <thead>
+                <tr>
+                    <th colspan="2">Information personnel</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="col-md-4">Nom</td>
+                    <td>
+                        {{ entity.nom }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Préom</td>
+                    <td>
+                        {{ entity.prenom }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Date naissance</td>
+                    <td>
+                        {{ entity.dateNaissance|localizeddate('medium', 'none', format='dd MMM yyyy') }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Sexe</td>
+                    <td>
+                        {{ entity.sexe }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Num cin</td>
+                    <td>
+                        {{ entity.cin }}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <table class="table table-condensed" style="margin-bottom: 15px;">
+                <thead>
+                <tr>
+                    <th colspan="2">Information contact</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="col-md-4">Téléphone</td>
+                    <td>
+                        {{ entity.tel }}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">Email</td>
+                    <td>
+                        {{ entity.email }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Adresse</td>
+                    <td>
+                        {{ entity.adresse }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Ville</td>
+                    <td>
+                        {{ entity.ville.nom|default() }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Code postal</td>
+                    <td>
+                        {{ entity.codePostal }}
+                    </td>
+                </tr>
+
+
+                </tbody>
+            </table>
+
+            <table class="table table-condensed" style="margin-bottom: 15px;">
+                <thead>
+                <tr>
+                    <th colspan="2">Etude et etablissement</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="col-md-4">Niveau d'étude</td>
+                    <td>
+                        {{ entity.niveauEtude }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Diplome prépare</td>
+                    <td>
+                        {{ entity.diplomePrepare }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Titre de diplome</td>
+                    <td>
+                        {{ entity.ville.titreDiplome|default() }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Etablissement</td>
+                    <td>
+                        {{ entity.etablissement }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Adresse etablissement</td>
+                    <td>
+                        {{ entity.adresseEtablissement }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Ville etablissement</td>
+                    <td>
+                        {{ entity.villeEtablissement }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>code postal</td>
+                    <td>
+                        {{ entity.codePostalEtablissement }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Téléphone Etablissement</td>
+                    <td>
+                        {{ entity.telEtablissement }}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+
+            <div class="message-content">
+                <h5><strong>Lettre de motivation</strong></h5>
+                <p>
+                    {{ entity.lettreMotivation|nl2br }}
+                </p>
+            </div>
+            <div class="message-content">
+                <h5><strong>CV</strong></h5>
+                <p>
+                    {{ entity.cv|nl2br }}
+                </p>
+            </div>
+
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">
+                Fermer
+            </button>
+        </div>
+    </div>
+</div>

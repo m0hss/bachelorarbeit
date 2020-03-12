@@ -1,0 +1,71 @@
+{% extends 'form_div_layout.html.twig' %}
+
+{%- block hidden_row -%}
+    <div style="display:none">
+        {{ form_widget(form) }}
+    </div>
+{%- endblock hidden_row -%}
+
+
+{% block form_widget_simple %}
+    <div class="form-group">
+        {{ form_label(form, null, {'label_attr': {'class': 'control-label'}}) }}
+        {{ parent() }}
+        <span style="color:red">{{ form_errors(form) }}</span>
+    </div>
+{% endblock %}
+
+{# textarea#}
+{% block textarea_widget %}
+    <div class="form-group">
+        {{ form_label(form, null, {'label_attr': {'class': 'control-label'}}) }}
+        {{ parent() }}
+    </div>
+{% endblock %}
+
+{# choice#}
+{% block choice_widget %}
+    <div class="form-group">
+        {{ form_label(form, null, {'label_attr': {'class': 'control-label'}}) }}
+
+        <div class="clip-radio radio-primary" style="margin-top:5px;">
+            {{ parent() }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block file_widget %}
+    {% spaceless %}
+
+        <div class="fileinput-preview fileinput-exists thumbnail"></div>
+        <div class="user-edit-image-buttons">
+            <span class="btn btn-azure btn-file">
+                <span class="fileinput-new">
+                    <i class="fa fa-picture"></i> Selectionner photo
+                </span>
+                <span class="fileinput-exists">
+                    <i class="fa fa-picture"></i> Changer
+                </span>
+                {% set type = type|default('file') %}
+                <input type="{{ type }}" {{ block('widget_attributes') }} />
+
+            </span>
+
+            <a href="#" class="btn fileinput-exists btn-red" data-dismiss="fileinput">
+                <i class="fa fa-times"></i> Supprimer
+            </a>
+        </div>
+    {% endspaceless %}
+{% endblock %}
+
+{# checkbox #}
+{% block checkbox_widget %}
+    <div class="form-group">
+        <div class="checkbox clip-check check-primary">
+            {{ parent() }}
+
+            {{ form_label(form, null, {'label_attr': {'class': 'control-label', 'id': 'checkbox2'}}) }}
+
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends '::admin.html.twig' %}
+
+{% block title %} {{ parent() }} - Mon compte {% endblock %}
+
+    {% block page_header %}
+        <div class="col-sm-8">
+            <h1 class="mainTitle">Mon compte</h1>
+        </div>
+    {% endblock %}
+{% block body %}
+
+    <div class="col-md-12">
+        <div class="tabbable">
+            <ul class="nav nav-tabs tab-padding tab-space-3 tab-blue" id="myTab4">
+                <li class="active">
+                    <a data-toggle="tab" href="#profile">
+                        Mon profil
+                    </a>
+                </li>
+            </ul>
+
+            <div class="tab-content">
+                <div id="profile" class="tab-pane fade in active">
+                    {% include 'FOSUserBundle:Profile:show_content.html.twig' %}
+                </div>
+
+
+                {#<div id="mes_conges" class="tab-pane fade" style="padding-bottom: 60px;">
+                    {{ render(controller("AppBundle:Conge:mesConges")) }}
+                </div>
+                <div id="remplacement" class="tab-pane fade">
+                    {{ render(controller("AppBundle:Conge:mesDemandesRemplacement")) }}
+                </div>
+                <div id="demander" class="tab-pane fade">
+                    {{ render(controller("AppBundle:Conge:formDemande")) }}
+                </div>
+                <div id="demandes_conges" class="tab-pane fade">
+                    {{ render(controller("AppBundle:Conge:listeDemandesCoges")) }}
+                </div>
+                <div id="demandes_stage" class="tab-pane fade">
+                    {{ render(controller("AppBundle:Stage:listeDemandesStages")) }}
+                </div>#}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

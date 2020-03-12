@@ -1,0 +1,35 @@
+<div class="panel panel-white" id="block-edit">
+    <div class="panel-heading">
+        <h5><span class="text-bold">Modifier fonction</span>
+            <a class="btn btn-xs btn-red close-div pull-right" href title="Fermer">
+                <i class="fa fa-times fa fa-white"></i>
+            </a>
+        </h5>
+    </div>
+    <div class="panel-body">
+
+        <form role="form" method="post" action="{{ path('admin_fonction_modifier', {'id': id}) }}" role="form" id="form-edit">
+
+            <div class="form-group">
+                <label for="exampleInputPassword1">
+                    Nom fonction
+                </label>
+                {{ form_widget(form.nom) }}
+            </div>
+
+            {{ form_rest(form) }}
+
+            <button type="submit" class="btn btn-primary" id="edit_submit_button">
+                Modifier
+            </button>
+
+            <figure style="display: inline">
+                &nbsp;&nbsp; <img src="{{ asset('images/ajax_loader.gif') }}" class="loading-edit"
+                                  style="display: none;margin: 0 auto"
+                                  width="35" height=""/><br>
+            </figure>
+        </form>
+
+
+    </div>
+</div>

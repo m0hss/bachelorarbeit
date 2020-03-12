@@ -1,0 +1,42 @@
+{% extends '::admin.html.twig' %}
+
+{% block title %} {{ parent() }} - Voir employe {% endblock %}
+
+
+    {% block page_header %}
+        <div class="col-sm-8">
+            <h1 class="mainTitle">Gestion des employes</h1>
+        </div>
+
+    {% endblock %}
+
+{% block body %}
+
+    <div class="col-md-12">
+        <div class="tabbable">
+            <ul class="nav nav-tabs tab-padding tab-space-3 tab-blue" id="myTab4">
+                <li class="active">
+                    <a data-toggle="tab" href="#panel_overview">
+                        Voir
+                    </a>
+                </li>
+                <li>
+                    <a data-toggle="tab" href="#panel_edit_account">
+                        Modifier
+                    </a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div id="panel_overview" class="tab-pane fade in active">
+                    {% include 'AppBundle:Admin/Employe:voir_contenue.html.twig' %}
+                </div>
+                <div id="panel_edit_account" class="tab-pane fade">
+                    {% include 'AppBundle:Admin/Employe:form-edit.html.twig' %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

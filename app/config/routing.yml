@@ -1,0 +1,62 @@
+employe:
+    resource: "@AppBundle/Resources/config/routing/admin/employe.yml"
+    prefix:   /application/admin/employes
+
+fonction:
+    resource: "@AppBundle/Resources/config/routing/admin/fonction.yml"
+    prefix:   /application/admin/fonctions
+
+departement:
+    resource: "@AppBundle/Resources/config/routing/admin/departement.yml"
+    prefix:   /application/admin/departements
+
+type_conge:
+    resource: "@AppBundle/Resources/config/routing/admin/type_conge.yml"
+    prefix:   /application/admin/types-conge
+
+stage:
+    resource: "@AppBundle/Resources/config/routing/admin/stage.yml"
+    prefix:   /application/stages
+
+
+conge:
+    resource: "@AppBundle/Resources/config/routing/admin/conge.yml"
+    prefix:   /application/conges
+
+
+demander_satage:
+    path:     /demander-stage
+    defaults: { _controller: AppBundle:Stage:demander}
+
+demander_satage_ok:
+    path:     /demander-stage-ok
+    defaults: { _controller: AppBundle:Stage:demanderOk}
+
+#####  partie profile #######
+
+fos_user_security:
+    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+    prefix: /
+
+fos_user_profile:
+    resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
+    prefix: /application/profile
+
+fos_user_resetting:
+    resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
+    prefix: /reinitialisation
+
+fos_user_change_password:
+    resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
+    prefix: /profile
+
+
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+
+
+
+
+
+
+

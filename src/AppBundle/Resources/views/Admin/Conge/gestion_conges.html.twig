@@ -1,0 +1,212 @@
+{# cette page pour le chef departement, il consulte la liste des demandes des conges#}
+{% extends '::admin.html.twig' %}
+
+{% block title %} {{ parent() }} - Gestion des conges {% endblock %}
+
+    {% block page_header %}
+        <div class="col-sm-8">
+            <h1 class="mainTitle">Gestion des conges</h1>
+        </div>
+    {% endblock %}
+
+{% block body %}
+
+
+    <div class="row">
+        <div class="col-md-12" id="madiv">
+
+            <div class="tabbable">
+                <ul class="nav nav-tabs tab-padding tab-space-3 tab-blue" id="myTab4">
+                    <li class="active">
+                        <a data-toggle="tab" href="#t1">
+                            <h5><span class="text-bold">Liste des conges</span></h5>
+                        </a>
+                    </li>
+                    <li>
+                        <a data-toggle="tab" href="#t2">
+                            <h5><span class="text-bold">Employés en conge</span></h5>
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="tab-content">
+                    <div id="t1" class="tab-pane fade in active">
+                        {% if entities %}
+                            <table class="table table-striped table-hover" id="sample_2">
+                                <thead>
+                                <tr>
+                                    <th>Type conge</th>
+                                    <th>Demandeur</th>
+                                    <th>Remplaceur</th>
+                                    <th>Date demande</th>
+                                    <th>Date debut</th>
+                                    <th>Date fin</th>
+                                    <th class="col-md-1">Nb jours</th>
+                                    <th class="col-md-1"></th>
+                                    <th class="col-md-1"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                {% for entity in entities %}
+                                    <tr id="item-{{ entity.id }}">
+                                        <td>{{ entity.typeConge.nom|title }}</td>
+                                        <td><span class="label label-sm label-info"
+                                                  style="font-size: 16px;">{{ entity.demandeur.uniqueNom|title }}</span>
+                                        </td>
+                                        <td><span class="label label-sm label-info"
+                                                  style="font-size: 16px;">{{ entity.remplaceur.uniqueNom|title }}</span>
+                                        </td>
+                                        <td>{{ entity.dateDemande|localizeddate('medium', 'none', format='EEEE dd MMM yyyy') }}</td>
+                                        <td>{{ entity.dateDebut|localizeddate('medium', 'none', format='EEEE dd MMM yyyy') }}</td>
+                                        <td>{{ entity.dateFin|localizeddate('medium', 'none', format='EEEE dd MMM yyyy') }}</td>
+                                        <td>{% set difference = date(entity.dateFin).diff(date(entity.dateDebut)) %}
+                                            {% set leftDays = difference.days %}
+                                            {% if leftDays == 1 %}1 jour
+                                            {% else %}
+                                                {{ leftDays }} Jours
+                                            {% endif %}</td>
+                                        <td class="center">
+
+                                            {% if entity.etat.id == 3 %}
+                                                <span class="label label-success arrowed hidden valider-{{ entity.id }}">Accepter</span>
+                                                <span class="label label-danger arrowed hidden refuser-{{ entity.id }}">Réfuser</span>
+
+                                                <span id="action-{{ entity.id }}">
+
+                        <a class="btn btn-xs btn-success valider" title="Accepter" data-entity-id="{{ entity.id }}"
+                           href="{{ path('admin_etat_conge', {'id_conge': entity.id, 'id_etat':5} ) }}"><i
+                                    class="fa fa-check fa fa-white"></i></a>
+
+
+                        <a class="btn btn-xs btn-red refuser" title="Réfuser" data-entity-id="{{ entity.id }}"
+                           href="{{ path('admin_etat_conge', {'id_conge': entity.id, 'id_etat':4} ) }}"><i
+                                    class="fa fa-times fa fa-white"></i></a>
+
+                            </span>
+                                            {% elseif entity.etat.id == 4 %}
+                                                <span class="label label-danger arrowed">Réfuser</span>
+                                            {% else %}
+                                                <span class="label label-success arrowed">Accepter</span>
+                                            {% endif %}
+                                        </td>
+                                        <td class="center">
+                                            <div class="visible-md visible-lg hidden-sm hidden-xs">
+
+                                                <a href="{{ path('admin_supprimer_conge', {'id': entity.id}) }}"
+                                                   data-entity-id="{{ entity.id }}"
+                                                   class="btn btn-transparent btn-xs tooltips remove_item"
+                                                   tooltip-placement="top"
+                                                   tooltip="Remove"><i class="fa fa-times fa fa-white"></i></a>
+                                            </div>
+                                            <div class="visible-xs visible-sm hidden-md hidden-lg">
+                                                <div class="btn-group" dropdown>
+                                                    <button type="button"
+                                                            class="btn btn-primary btn-o btn-sm dropdown-toggle"
+                                                            dropdown-toggle>
+                                                        <i class="fa fa-cog"></i>&nbsp;<span class="caret"></span>
+                                                    </button>
+                                                    <ul class="dropdown-menu pull-right dropdown-light" role="menu">
+                                                        <li>
+                                                            <a href="{{ path('admin_supprimer_conge', {'id': entity.id}) }}"
+                                                               data-entity-id="{{ entity.id }}"
+                                                               class="btn btn-transparent btn-xs tooltips remove_item"
+                                                               tooltip-placement="top"
+                                                               tooltip="Remove"><i class="fa fa-times fa fa-white"></i></a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        {% else %}
+                            <br><br>
+                            <h4>Pas des demandes</h4>
+                        {% endif %}
+                        <br><br>
+                    </div>
+
+                    <div id="t2" class="tab-pane fade in">
+                        {% if entities %}
+                            <table class="table table-striped table-hover" id="sample_1">
+                                <thead>
+                                <tr>
+                                    <th>Type conge</th>
+                                    <th>Demandeur</th>
+                                    <th>Remplaceur</th>
+                                    <th>Date demande</th>
+                                    <th>Date debut</th>
+                                    <th>Date fin</th>
+                                    <th class="col-md-1">Nb jours</th>
+                                    <th class="col-md-1"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                {% for entity in employesEnConge %}
+                                    <tr id="item-{{ entity.id }}">
+                                        <td>{{ entity.typeConge.nom|title }}</td>
+                                        <td><span class="label label-sm label-info"
+                                                  style="font-size: 16px;">{{ entity.demandeur.uniqueNom|title }}</span>
+                                        </td>
+                                        <td><span class="label label-sm label-info"
+                                                  style="font-size: 16px;">{{ entity.remplaceur.uniqueNom|title }}</span>
+                                        </td>
+                                        <td>{{ entity.dateDemande|localizeddate('medium', 'none', format='EEEE dd MMM yyyy') }}</td>
+                                        <td>{{ entity.dateDebut|localizeddate('medium', 'none', format='EEEE dd MMM yyyy') }}</td>
+                                        <td>{{ entity.dateFin|localizeddate('medium', 'none', format='EEEE dd MMM yyyy') }}</td>
+                                        <td>{% set difference = date(entity.dateFin).diff(date(entity.dateDebut)) %}
+                                            {% set leftDays = difference.days %}
+                                            {% if leftDays == 1 %}1 jour
+                                            {% else %}
+                                                {{ leftDays }} Jours
+                                            {% endif %}</td>
+
+                                        <td class="center">
+                                            <div class="visible-md visible-lg hidden-sm hidden-xs">
+
+                                                <a href="{{ path('admin_supprimer_conge', {'id': entity.id}) }}"
+                                                   data-entity-id="{{ entity.id }}"
+                                                   class="btn btn-transparent btn-xs tooltips remove_item"
+                                                   tooltip-placement="top"
+                                                   tooltip="Remove"><i class="fa fa-times fa fa-white"></i></a>
+                                            </div>
+                                            <div class="visible-xs visible-sm hidden-md hidden-lg">
+                                                <div class="btn-group" dropdown>
+                                                    <button type="button"
+                                                            class="btn btn-primary btn-o btn-sm dropdown-toggle"
+                                                            dropdown-toggle>
+                                                        <i class="fa fa-cog"></i>&nbsp;<span class="caret"></span>
+                                                    </button>
+                                                    <ul class="dropdown-menu pull-right dropdown-light" role="menu">
+                                                        <li>
+                                                            <a href="{{ path('admin_supprimer_conge', {'id': entity.id}) }}"
+                                                               data-entity-id="{{ entity.id }}"
+                                                               class="btn btn-transparent btn-xs tooltips remove_item"
+                                                               tooltip-placement="top"
+                                                               tooltip="Remove"><i class="fa fa-times fa fa-white"></i></a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        {% else %}
+                            <br><br>
+                            <h4>Pas des demandes</h4>
+                        {% endif %}
+                        <br><br>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

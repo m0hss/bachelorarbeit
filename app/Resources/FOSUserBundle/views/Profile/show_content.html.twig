@@ -1,0 +1,115 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+<div class="row">
+    <div class="col-sm-5 col-md-4">
+        <div class="user-left">
+            <div class="center">
+                <h4>{{ app.user.uniqueNom|title }}</h4>
+                <div class="fileinput fileinput-new" data-provides="fileinput">
+                    <div class="user-image">
+                        <div class="fileinput-new thumbnail">
+                            {% if app.user.image %}
+                                <img src="{{ asset(app.user.image.webPath) }}" alt="">
+                            {% elseif app.user.image == null and app.user.sexe == "Homme" %}
+                                <img src="{{ asset('images/homme.png') }}" alt="">
+                            {% elseif app.user.image == null and app.user.sexe == "Femme" %}
+                                <img src="{{ asset('images/femme.png') }}" alt="">
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <hr>
+            </div>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th colspan="3">Information fonction</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Cin</td>
+                    <td>{{ app.user.cin }}</td>
+                </tr>
+                <tr>
+                    <td>Matricule</td>
+                    <td>{{ app.user.username }}</td>
+                </tr>
+                <tr>
+                    <td>Département</td>
+                    <td>{{ app.user.departement.nom|default('') }}</td>
+                </tr>
+                <tr>
+                    <td>Fonction</td>
+                    <td><span class="label label-sm label-info">{{ app.user.fonction.nom|default('')|title }}</span></td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+    <div class="col-sm-7 col-md-8">
+
+        <div class="panel panel-white space20">
+            <div class="panel-heading">
+                <h4 class="panel-title">Information</h4>
+            </div>
+            <div class="panel-body">
+                <table class="table table-condensed">
+                    <thead>
+                    <tr>
+                        <th colspan="2">Information personnel</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td class="col-md-4">Nom</td>
+                        <td class="col-md-8">{{ app.user.nom }}</td>
+                    </tr>
+                    <tr>
+                        <td>Prénom:</td>
+                        <td>{{ app.user.prenom }}</td>
+                    </tr>
+                    <tr>
+                        <td>Date naissance:</td>
+                        <td>{{ app.user.dateNaissance|localizeddate('medium', 'none', format='EEEE dd MMM yyyy') }}</td>
+                    </tr>
+                    <tr>
+                        <td>Sexe</td>
+                        <td>{{ app.user.sexe }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <table class="table table-condensed">
+                    <thead>
+                    <tr>
+                        <th colspan="2">Contact Information</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td class="col-md-4">Tel</td>
+                        <td class="col-md-8">{{ app.user.tel }}</td>
+                    </tr>
+                    <tr>
+                        <td>Adresse:</td>
+                        <td>{{ app.user.adresse|default('') }}</td>
+                    </tr>
+                    <tr>
+                        <td>Ville:</td>
+                        <td>{{ app.user.ville.nom|default('') }}</td>
+                    </tr>
+
+                    <tr>
+                        <td>Code postal</td>
+                        <td>{{ app.user.codePostal }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+
+
+            </div>
+        </div>
+    </div>
+</div>
